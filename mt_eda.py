@@ -7,9 +7,13 @@ import re
 
 
 os.getcwd()
-os.chdir(r"C:\\Users\\board\\Desktop\\Kaggle\\tsa-decision-trees")
+if input('Is this m or d?') == 'm':
+    os.chdir(r"C:\\Users\\board\\Desktop\\Kaggle\\tsa-decision-trees")
+else:
+    os.chdir(r'C:\Users\drose\Documents\GitHub\tsa-decision-trees')
 data1 = pd.read_excel("claims-data-2015-as-of-feb-9-2016.xlsx")
 
+### start data inspection ###
 data1.shape
 data1.head(100)
 data1.describe()
@@ -26,18 +30,22 @@ col_stats.columns = ["N_Missing", "N_Unique"]
 col_stats.shape
 col_stats
 
-# Begin looking at CLose Amount
+# Begin looking at Close Amount, dependent variable
 y = data2["Close Amount"]
 y.describe()
 # Percent of 0's
 len(y[y ==0])/len(y)
 
+y75 = y[y != 0].quantile(0.75)
 # Histogram of Close Amount
+plt.xkcd()
 y.hist(bins = 20)
+y[y<y75].hist(bins = 20)
+
 
 # Histogram of Close Amount without the 0 values
 y[y!=0].hist(bins = 20)
-
+plt.show()
 ### Quick time Series analysis
 
 # TODO: Dates analysis
@@ -50,30 +58,33 @@ data2["Incident D"].describe()
 
 sorted_DR = data2.sort_values(by="Date Received")
 sorted_DR = sorted_DR.set_index("Date Received")
-plt.plot(sorted_DR["Date Received"], sorted_DR["Close Amount"])
+plt.plot(sorted_DR.index, sorted_DR["Close Amount"])
 
+plt.show()
+# grouping data by months
 monthly_group = sorted_DR.groupby(pd.Grouper(freq = 'M'))
 monthly_group["Close Amount"].describe()
 
 
 # Close amount average by month
 plt.plot(monthly_group["Close Amount"].describe()["mean"])
-
+plt.show()
 numb_0_by_month = monthly_group["Close Amount"].apply(lambda x: len(x[x==0]))
 numb_cnt_by_month = monthly_group["Close Amount"].count()
 
 plt.plot(numb_0_by_month.index, numb_0_by_month, 'r--',  numb_cnt_by_month.index, numb_cnt_by_month, 'g--')
+plt.show()
 
 
-"""
-# Combine these plx
+# Combine these plz
 # Number of 0's per month
+%matplotlib notebook
 numb_0_line, = plt.plot(numb_0_by_month.index, numb_0_by_month, 'r--', label = "Number of 0's")
 numb_cnt_line, = plt.plot(numb_cnt_by_month.index, numb_cnt_by_month, 'g--', label = "Total Count")
 plt.legend(handles =[numb_0_line, numb_cnt_line])
-ax.set_title("Number of 0s and Total Count vs Month")
+plt.title("Number of 0s and Total Count vs Month")
+
 plt.show()
-"""
 
 ### Create some features based on time
 # Month, day of week for incident D and Date recieved
@@ -93,9 +104,9 @@ data2[cols_for_dummies].nunique().sum()
 
 
 # One hot encoding
-dummies = pd.get_dummies(data_clean, columns = cols_for_dummies)
+dummies = pd.get_dummies(data_clean[cols_for_dummies])
 dummies.shape
-dummies.head()
+pd.Series(dummies.columns.unique())
 data_clean.head()
 
 
@@ -138,10 +149,11 @@ comparing_dicts = {pd_tup[0]:set(pd_tup[1]).symmetric_difference(uni_ds_tup[1]) 
 
 {k:len(v) for k,v in comparing_dicts.items()}
 
+comparing_dicts['Disposition']
 comparing_dicts["Airline Name"]
 comparing_dicts["Claim Type"]
+testMismatch1 = list(comparing_dicts["Item Category"])[1]
 comparing_dicts["Item Category"] # Looks like there are multiple Item categories in this column
-
 
 
 
@@ -175,7 +187,7 @@ dummies.head()
 data_modeling = data_clean.drop(cols_for_dummies, axis = 1)
 data_modeling.drop(["Date Received", "Incident D"], axis = 1, inplace = True)
 data_modeling  = pd.concat([data_modeling, dummies], axis = 1)
-data_modeling.drop(["Date Received", "Incident D"], axis = 1, inplace = True) # Two sets of columns with this name
+#data_modeling.drop(["Date Received", "Incident D"], axis = 1, inplace = True) # Two sets of columns with this name
 data_modeling.shape
 data_modeling.head()
 data_modeling.isnull().sum().sum()
@@ -185,18 +197,28 @@ data_modeling.dtypes.values
 numb_bad_col_types = sum([True if col_type not in ["uint8", "float64", "int64"] else False for col_type in data_modeling.dtypes])
 print("The number of columns that need checking are: ", numb_bad_col_types)
 [col_type for col_type in data_modeling.dtypes if col_type not in ["uint8", "float64", "int64"]]
+data_modeling.head()
+'Close Amount' in list(data_modeling.columns)
+[x for x in data_modeling.columns if "Date" in x]
 
-
-X = data_modeling.drop(["Close Amount", "Date Recieved", "Incident D"], axis = 1)
+X = data_modeling.drop(["Close Amount"], axis = 1)
+#X = data_modeling.drop(["Close Amount", "Date Received", "Incident D"], axis = 1)
 Y = data_modeling["Close Amount"]
 from sklearn import tree
+try:
+    import pydotplus as pydot
+    print('yay')
+except  ModuleNotFoundError:
+    import pydot
 
-import pydot
 from sklearn.externals.six import StringIO
 from sklearn.tree import export_graphviz
 from IPython.display import Image
 
-os.environ["PATH"] += os.pathsep + "C:/Users/board/Desktop/Kaggle/release/bin"
+try:
+    os.environ["PATH"] += os.pathsep + "C:/Users/board/Desktop/Kaggle/release/bin"
+except:
+    pass
 
 # This function creates images of tree models using pydot
 def print_tree(estimator, features, class_names=None, filled=True):
@@ -210,15 +232,36 @@ def print_tree(estimator, features, class_names=None, filled=True):
     graph = pydot.graph_from_dot_data(dot_data.getvalue())
     return(graph)
 
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.3, random_state = 100)
 
 clf = tree.DecisionTreeRegressor(max_depth = 3, max_leaf_nodes=10, min_samples_leaf=10)
-clf.fit(X,Y)
-clf.score(X,Y)
+clf.fit(X_train,y_train)
+clf.score(X_train, y_train)
+clf.score(X_test,y_test)
+
+from sklearn.model_selection import GridSearchCV
+clf.get_params()
+param_grid = [
+  {'max_depth': [1, 2, 3, 5, 10, 400], 'max_leaf_nodes': [10, 500, 7], 'min_samples_leaf': [10, 100, 40]},
+  {'presort': [False, True], 'max_depth': [10,7]},
+ ]
+
+tree_reg = tree.DecisionTreeRegressor()
+grid1 = GridSearchCV(tree_reg, param_grid)
+grid1.fit(X_train, y_train)
+
+grid1.best_params_
+grid1.best_score_
+
+means = grid1.cv_results_['mean_test_score']
+means
+stds = grid1.cv_results_['std_test_score']
+
 
 graphs2, = print_tree(clf, features = X.columns)
 Image(graphs2.create_png())
 
-dir(clf)
 
 feat_importances = pd.DataFrame({"Features":X.columns, "Importances":clf.feature_importances_})
 feat_importances.sort_values(by="Importances", ascending=False).head(10)
