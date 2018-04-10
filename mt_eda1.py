@@ -11,6 +11,7 @@ if input('Is this m or d?') == 'm':
     os.chdir(r"C:\\Users\\board\\Desktop\\Kaggle\\tsa-decision-trees")
 else:
     os.chdir(r'C:\Users\drose\Documents\GitHub\tsa-decision-trees')
+
 data1 = pd.read_excel("claims-data-2015-as-of-feb-9-2016.xlsx")
 
 ### start data inspection ###
@@ -26,6 +27,7 @@ col_n_missing.shape
 col_n_missing
 
 col_stats = pd.concat([col_n_missing, col_n_unique], axis =1)
+
 col_stats.columns = ["N_Missing", "N_Unique"]
 col_stats.shape
 col_stats
@@ -136,12 +138,16 @@ group_by_dicts["Claim Type"].keys()
 group_by_dicts["Claim Type"]['avg_cnt']
 group_by_dicts["Claim Type"]["describe_gb"]
 group_by_dicts["Claim Type"]["describe_gb"].shape
+group_by_dicts["Claim Type"]["gb"]["Close Amount"].sum()
+group_by_dicts["Claim Type"]["gb"]["Close Amount"].count()
+group_by_dicts["Claim Type"]["gb"]["Close Amount"].apply(lambda x: x.sum()/x.count())
+
 
 
 #airport_name_gb["Close Amount"].apply(np.mean).sort_values(ascending = False)
 
 # Another custom way to do this
-ef custom_stats(close_amount):
+def custom_stats(close_amount):
     # Utilizes the skipna feature
     std_temp = close_amount.std()
     mean_temp = close_amount.mean()

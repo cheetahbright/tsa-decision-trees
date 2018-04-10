@@ -117,7 +117,7 @@ data_modeling.head()
 X = data_modeling.drop(["Close Amount"], axis = 1)
 #X = data_modeling.drop(["Close Amount", "Date Received", "Incident D"], axis = 1)
 Y = data_modeling["Close Amount"]
-
+X.columns
 
 from sklearn import tree
 
@@ -159,7 +159,7 @@ clf.score(X_test,y_test)
 from sklearn.model_selection import GridSearchCV
 clf.get_params()
 param_grid = [
-  {'max_depth': [1, 2, 3, 5, 10, 400], 'max_leaf_nodes': [10, 500, 7], 'min_samples_leaf': [10, 100, 40]},
+  {'max_depth': [ 2, 5, 40, 100], 'max_leaf_nodes': [5, 20, 70, None], 'min_samples_leaf': [1, 5, 20, 100]},
   {'presort': [False, True], 'max_depth': [10,7]},
  ]
 
@@ -169,6 +169,16 @@ grid1.fit(X_train, y_train)
 
 grid1.best_params_
 grid1.best_score_
+grid1.cv_results_.keys()
+results_dict = pd.DataFrame(grid1.cv_results_)
+results_dict.head()
+results_dict.sort_values(by="mean_test_score")
+
+
+dir(grid1)
+
+
+grid1.best_estimator_
 
 means = grid1.cv_results_['mean_test_score']
 means
@@ -183,3 +193,46 @@ feat_importances = pd.DataFrame({"Features":X.columns, "Importances":clf.feature
 feat_importances.sort_values(by="Importances", ascending=False).head(10)
 non_zero_importances = feat_importances[feat_importances["Importances"] > 0.0]
 non_zero_feats = non_zero_importances["Features"].values
+non_zero_feats
+
+from sklearn.ensemble import RandomForestRegressor
+clf2 = RandomForestRegressor(n_estimators=30, max_depth = 4)
+
+clf2.fit(X_train, y_train)
+clf2
+clf2.score(X_train, y_train)
+clf.score(X_train, y_train)
+
+clf2.score(X_test, y_test)
+clf.score(X_test, y_test)
+
+y_pred = clf2.predict(X_test)
+min(y_pred)
+pd.Series(y_pred).describe()
+y_test.describe()
+
+
+y_pred_0_1 = [1 if x > 0 else 0 for x in y_pred]
+y_actual_0_1 = [1 if x > 0 else 0 for x in y_test]
+
+sum([1 if x== y else 0 for (x,y) in zip(y_pred_0_1, y_actual_0_1)])/len(y_pred_0_1)
+
+zip(y_pred_0_1, y_actual_0_1)
+
+
+from sklearn.ensemble import RandomForestClassifier
+clf3 = RandomForestClassifier(n_estimators=30, max_depth = 4)
+y_train_2 = [1 if y > 0 else 0 for y in y_train]
+y_test_2 = [1 if y > 0 else 0 for y in y_test]
+
+clf3.fit(X_train, y_train_2)
+clf2
+clf3.score(X_train, y_train_2)
+clf.score(X_train, y_train_2)
+
+clf3.score(X_test, y_test_2)
+clf.score(X_test, y_test)
+
+y_pred = clf2.predict(X_test)
+min(y_pred)
+pd.Series(y_pred).describe()
