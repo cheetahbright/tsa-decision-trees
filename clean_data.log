@@ -1,0 +1,117 @@
+INFO:root:Created one hot variables Index([u'Airport Code_ABE', u'Airport Code_ABI', u'Airport Code_ABQ',
+       u'Airport Code_ACK', u'Airport Code_ACT', u'Airport Code_ACV',
+       u'Airport Code_ACY', u'Airport Code_ADK', u'Airport Code_ADQ',
+       u'Airport Code_AGS',
+       ...
+       u'Item Category_Tools & Home Improvement Supplies',
+       u'Item Category_Tools & Home Improvement Supplies; Tools & Home Improvement Supplies',
+       u'Item Category_Tools & Home Improvement Supplies; Travel Accessories',
+       u'Item Category_Toys & Games',
+       u'Item Category_Toys & Games; Travel Accessories',
+       u'Item Category_Travel Accessories',
+       u'Item Category_Travel Accessories; Travel Accessories',
+       u'Disposition_Approve in Full', u'Disposition_Deny',
+       u'Disposition_Settle'],
+      dtype='object', length=1141)
+DEBUG:root:Shape of original data is(8667, 11)
+INFO:root:Finished creating time series variables
+INFO:root:Created one hot variables Index([u'Airport Code_ABE', u'Airport Code_ABI', u'Airport Code_ABQ',
+       u'Airport Code_ACK', u'Airport Code_ACT', u'Airport Code_ACV',
+       u'Airport Code_ACY', u'Airport Code_ADK', u'Airport Code_ADQ',
+       u'Airport Code_AGS',
+       ...
+       u'Item Category_Tools & Home Improvement Supplies',
+       u'Item Category_Tools & Home Improvement Supplies; Tools & Home Improvement Supplies',
+       u'Item Category_Tools & Home Improvement Supplies; Travel Accessories',
+       u'Item Category_Toys & Games',
+       u'Item Category_Toys & Games; Travel Accessories',
+       u'Item Category_Travel Accessories',
+       u'Item Category_Travel Accessories; Travel Accessories',
+       u'Disposition_Approve in Full', u'Disposition_Deny',
+       u'Disposition_Settle'],
+      dtype='object', length=1141)
+DEBUG:root:Shape of original data is(8667, 11)
+INFO:root:Finished creating time series variables
+INFO:root:Created one hot variables Index([u'Airport Code_ABE', u'Airport Code_ABI', u'Airport Code_ABQ',
+       u'Airport Code_ACK', u'Airport Code_ACT', u'Airport Code_ACV',
+       u'Airport Code_ACY', u'Airport Code_ADK', u'Airport Code_ADQ',
+       u'Airport Code_AGS',
+       ...
+       u'Item Category_Tools & Home Improvement Supplies',
+       u'Item Category_Tools & Home Improvement Supplies; Tools & Home Improvement Supplies',
+       u'Item Category_Tools & Home Improvement Supplies; Travel Accessories',
+       u'Item Category_Toys & Games',
+       u'Item Category_Toys & Games; Travel Accessories',
+       u'Item Category_Travel Accessories',
+       u'Item Category_Travel Accessories; Travel Accessories',
+       u'Disposition_Approve in Full', u'Disposition_Deny',
+       u'Disposition_Settle'],
+      dtype='object', length=1141)
+DEBUG:root:Shape of original data is(8667, 11)
+INFO:root:Finished creating time series variables
+INFO:root:Created one hot variables Index([u'Airport Code_ABE', u'Airport Code_ABI', u'Airport Code_ABQ',
+       u'Airport Code_ACK', u'Airport Code_ACT', u'Airport Code_ACV',
+       u'Airport Code_ACY', u'Airport Code_ADK', u'Airport Code_ADQ',
+       u'Airport Code_AGS',
+       ...
+       u'Item Category_Tools & Home Improvement Supplies',
+       u'Item Category_Tools & Home Improvement Supplies; Tools & Home Improvement Supplies',
+       u'Item Category_Tools & Home Improvement Supplies; Travel Accessories',
+       u'Item Category_Toys & Games',
+       u'Item Category_Toys & Games; Travel Accessories',
+       u'Item Category_Travel Accessories',
+       u'Item Category_Travel Accessories; Travel Accessories',
+       u'Disposition_Approve in Full', u'Disposition_Deny',
+       u'Disposition_Settle'],
+      dtype='object', length=1141)
+DEBUG:root:Shape of original data is(8667, 11)
+INFO:root:Finished creating time series variables
+INFO:root:Created one hot variables Index([u'Airport Code_ABE', u'Airport Code_ABI', u'Airport Code_ABQ',
+       u'Airport Code_ACK', u'Airport Code_ACT', u'Airport Code_ACV',
+       u'Airport Code_ACY', u'Airport Code_ADK', u'Airport Code_ADQ',
+       u'Airport Code_AGS',
+       ...
+       u'Item Category_Tools & Home Improvement Supplies',
+       u'Item Category_Tools & Home Improvement Supplies; Tools & Home Improvement Supplies',
+       u'Item Category_Tools & Home Improvement Supplies; Travel Accessories',
+       u'Item Category_Toys & Games',
+       u'Item Category_Toys & Games; Travel Accessories',
+       u'Item Category_Travel Accessories',
+       u'Item Category_Travel Accessories; Travel Accessories',
+       u'Disposition_Approve in Full', u'Disposition_Deny',
+       u'Disposition_Settle'],
+      dtype='object', length=1141)
+DEBUG:root:Shape of original data is(8667, 11)
+INFO:root:Finished creating time series variables
+INFO:root:Created one hot variables Index([u'Airport Code_ABE', u'Airport Code_ABI', u'Airport Code_ABQ',
+       u'Airport Code_ACK', u'Airport Code_ACT', u'Airport Code_ACV',
+       u'Airport Code_ACY', u'Airport Code_ADK', u'Airport Code_ADQ',
+       u'Airport Code_AGS',
+       ...
+       u'Item Category_Tools & Home Improvement Supplies',
+       u'Item Category_Tools & Home Improvement Supplies; Tools & Home Improvement Supplies',
+       u'Item Category_Tools & Home Improvement Supplies; Travel Accessories',
+       u'Item Category_Toys & Games',
+       u'Item Category_Toys & Games; Travel Accessories',
+       u'Item Category_Travel Accessories',
+       u'Item Category_Travel Accessories; Travel Accessories',
+       u'Disposition_Approve in Full', u'Disposition_Deny',
+       u'Disposition_Settle'],
+      dtype='object', length=1141)
+DEBUG:root:Shape of original data is(8667, 11)
+INFO:root:Finished creating time series variables
+INFO:root:Created one hot variables Index([u'Airport Code_ABE', u'Airport Code_ABI', u'Airport Code_ABQ',
+       u'Airport Code_ACK', u'Airport Code_ACT', u'Airport Code_ACV',
+       u'Airport Code_ACY', u'Airport Code_ADK', u'Airport Code_ADQ',
+       u'Airport Code_AGS',
+       ...
+       u'Item Category_Tools & Home Improvement Supplies',
+       u'Item Category_Tools & Home Improvement Supplies; Tools & Home Improvement Supplies',
+       u'Item Category_Tools & Home Improvement Supplies; Travel Accessories',
+       u'Item Category_Toys & Games',
+       u'Item Category_Toys & Games; Travel Accessories',
+       u'Item Category_Travel Accessories',
+       u'Item Category_Travel Accessories; Travel Accessories',
+       u'Disposition_Approve in Full', u'Disposition_Deny',
+       u'Disposition_Settle'],
+      dtype='object', length=1141)

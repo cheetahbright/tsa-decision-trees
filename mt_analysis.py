@@ -97,6 +97,7 @@ dummies.shape
 ##### Final Data cleaning Prep ########
 #######################################
 #######################################
+
 data_modeling = data_clean.drop(cols_for_dummies, axis = 1)
 data_modeling.drop(["Date Received", "Incident D"], axis = 1, inplace = True)
 data_modeling  = pd.concat([data_modeling, dummies], axis = 1)

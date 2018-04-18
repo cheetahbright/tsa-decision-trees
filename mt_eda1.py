@@ -141,7 +141,7 @@ group_by_dicts["Claim Type"]["describe_gb"].shape
 #airport_name_gb["Close Amount"].apply(np.mean).sort_values(ascending = False)
 
 # Another custom way to do this
-ef custom_stats(close_amount):
+def custom_stats(close_amount):
     # Utilizes the skipna feature
     std_temp = close_amount.std()
     mean_temp = close_amount.mean()
