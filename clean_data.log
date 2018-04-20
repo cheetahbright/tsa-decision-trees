@@ -334,3 +334,64 @@ DEBUG:matplotlib.backends:backend module://ipykernel.pylab.backend_inline versio
 DEBUG:matplotlib.backends:backend module://ipykernel.pylab.backend_inline version unknown
 DEBUG:matplotlib.font_manager:findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/home/malcolm/miniconda3/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000
 DEBUG:matplotlib.font_manager:findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/home/malcolm/miniconda3/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000
+DEBUG:matplotlib:CACHEDIR=/home/owner/.cache/matplotlib
+DEBUG:matplotlib.font_manager:Using fontManager instance from /home/owner/.cache/matplotlib/fontList.json
+DEBUG:matplotlib.backends:backend module://ipykernel.pylab.backend_inline version unknown
+DEBUG:matplotlib.backends:backend module://ipykernel.pylab.backend_inline version unknown
+DEBUG:root:Shape of original data is(8667, 11)
+INFO:root:Finished creating time series variables
+INFO:root:Created one hot variables Index(['Airport Code_ABE', 'Airport Code_ABI', 'Airport Code_ABQ',
+       'Airport Code_ACK', 'Airport Code_ACT', 'Airport Code_ACV',
+       'Airport Code_ACY', 'Airport Code_ADK', 'Airport Code_ADQ',
+       'Airport Code_AGS',
+       ...
+       'Item Category_Tools & Home Improvement Supplies',
+       'Item Category_Tools & Home Improvement Supplies; Tools & Home Improvement Supplies',
+       'Item Category_Tools & Home Improvement Supplies; Travel Accessories',
+       'Item Category_Toys & Games',
+       'Item Category_Toys & Games; Travel Accessories',
+       'Item Category_Travel Accessories',
+       'Item Category_Travel Accessories; Travel Accessories',
+       'Disposition_Approve in Full', 'Disposition_Deny',
+       'Disposition_Settle'],
+      dtype='object', length=1141)
+DEBUG:matplotlib.font_manager:findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/home/owner/anaconda3/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000
+DEBUG:matplotlib.font_manager:findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/home/owner/anaconda3/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000
+DEBUG:matplotlib:CACHEDIR=/home/owner/.cache/matplotlib
+DEBUG:matplotlib.font_manager:Using fontManager instance from /home/owner/.cache/matplotlib/fontList.json
+DEBUG:matplotlib.backends:backend module://ipykernel.pylab.backend_inline version unknown
+DEBUG:matplotlib.backends:backend module://ipykernel.pylab.backend_inline version unknown
+DEBUG:root:Shape of original data is(8667, 11)
+INFO:root:Finished creating time series variables
+INFO:root:Created one hot variables Index(['Airport Code_ABE', 'Airport Code_ABI', 'Airport Code_ABQ',
+       'Airport Code_ACK', 'Airport Code_ACT', 'Airport Code_ACV',
+       'Airport Code_ACY', 'Airport Code_ADK', 'Airport Code_ADQ',
+       'Airport Code_AGS',
+       ...
+       'Item Category_Tools & Home Improvement Supplies',
+       'Item Category_Tools & Home Improvement Supplies; Tools & Home Improvement Supplies',
+       'Item Category_Tools & Home Improvement Supplies; Travel Accessories',
+       'Item Category_Toys & Games',
+       'Item Category_Toys & Games; Travel Accessories',
+       'Item Category_Travel Accessories',
+       'Item Category_Travel Accessories; Travel Accessories',
+       'Disposition_Approve in Full', 'Disposition_Deny',
+       'Disposition_Settle'],
+      dtype='object', length=1141)
+DEBUG:root:Shape of original data is(8667, 11)
+INFO:root:Finished creating time series variables
+INFO:root:Created one hot variables Index(['Airport Code_ABE', 'Airport Code_ABI', 'Airport Code_ABQ',
+       'Airport Code_ACK', 'Airport Code_ACT', 'Airport Code_ACV',
+       'Airport Code_ACY', 'Airport Code_ADK', 'Airport Code_ADQ',
+       'Airport Code_AGS',
+       ...
+       'Item Category_Tools & Home Improvement Supplies',
+       'Item Category_Tools & Home Improvement Supplies; Tools & Home Improvement Supplies',
+       'Item Category_Tools & Home Improvement Supplies; Travel Accessories',
+       'Item Category_Toys & Games',
+       'Item Category_Toys & Games; Travel Accessories',
+       'Item Category_Travel Accessories',
+       'Item Category_Travel Accessories; Travel Accessories',
+       'Disposition_Approve in Full', 'Disposition_Deny',
+       'Disposition_Settle'],
+      dtype='object', length=1141)

@@ -1,9 +1,8 @@
 
 
-import importlib as imp
-
+from importlib import reload
 import clean_data
-imp.reload(clean_data)
+reload(clean_data)
 from clean_data import *
 
 import pandas as pd
@@ -32,13 +31,15 @@ Y = cleaned_data["Close Amount"]
 # Mine was (should be) (6601, 111)
 
 import keras
-from keras.layers import Dense, Flatten
+from keras.layers import Dense, Flatten, Dropout, BatchNormalization
 from keras.layers.embeddings import Embedding
 from keras.models import Sequential
 
-n_unique_col = len(airline_col_names) - 1 # -1 for the close amount
+n_unique_col = len(airline_col_names)
 output_embeddings = min(50, n_unique_col//2)
 vocab_size = n_unique_col # In this case?
+
+
 
 def build_1h_emb_model(hidden_layer_n = 10 ,trace = 1):
 
@@ -46,6 +47,24 @@ def build_1h_emb_model(hidden_layer_n = 10 ,trace = 1):
     model.add(Embedding(vocab_size, output_embeddings, input_length = n_unique_col))
     model.add(Flatten())
     model.add(Dense(hidden_layer_n, activation = "relu"))
+    model.add(Dense(1, activation = "linear"))
+
+    model.compile(optimizer = "adam", loss = "mse")
+
+    if trace:
+        print(model.summary())
+
+    return(model)
+
+def build_1h_drop_batch_emb_model(hidden_layer_n = 10, dropout_p = 0.25, trace = 1):
+
+    model = Sequential()
+    model.add(Embedding(vocab_size, output_embeddings, input_length = n_unique_col))
+    model.add(Dropout(dropout_p, seed=1234))
+    model.add(Flatten())
+    model.add(Dense(hidden_layer_n, activation = "relu"))
+    model.add(Dropout(dropout_p, seed=123))
+    model.add(BatchNormalization())
     model.add(Dense(1, activation = "linear"))
 
     model.compile(optimizer = "adam", loss = "mse")
@@ -72,8 +91,8 @@ def plot_nn_metric(history):
     plt.ioff()
 
     plt.plot(history[keyss[0]])
-    plt.title(history[keyss[0]] + ' vs epoch')
-    plt.ylabel(history[keyss[0]])
+    plt.title(keyss[0] + ' vs epoch')
+    plt.ylabel(keyss[0])
     plt.xlabel('epoch')
 
     if n_keys > 1:
@@ -87,7 +106,7 @@ def plot_nn_metric(history):
 
 
 model1 = build_1h_emb_model()
-hist = model1.fit(airline_df, Y, validation_split = 0.3, epochs = 10)
+hist = model1.fit(airline_df, Y, validation_split = 0.3, epochs = 3)
 
 # Model evaluation
 keyys = hist.history.keys()
@@ -98,13 +117,30 @@ for unique_key in unique_keys:
     temp_hist = {k:v for k,v in hist.history.items() if unique_key in k}
     plot_nn_metric(temp_hist)
 
+## Model 2
+
+model2 = build_1h_drop_batch_emb_model()
+hist2 = model2.fit(airline_df, Y, validation_split = 0.3, epochs = 20)
+
+
+keyys = hist2.history.keys()
+keys_no_val = [x if x[:4] != "val_" else x[4:] for x in keyys]
+unique_keys = list(set(keys_no_val))
+
+for unique_key in unique_keys:
+    temp_hist = {k:v for k,v in hist2.history.items() if unique_key in k}
+    plot_nn_metric(temp_hist)
+
+
 # Retrieve the embeddings
 # Expect the matrix to have number of rows = to # of classes
 # Number of columns to be number selected above (output embeddings)
-model.layers[0].get_weights()[0]
-embed_matrix = pd.DataFrame(model.layers[0].get_weights()[0])
+model2.layers[0].get_weights()[0]
+embed_matrix = pd.DataFrame(model2.layers[0].get_weights()[0])
 embed_matrix.index = airline_col_names
 embed_matrix.shape
 
 # Peak at top corner -- doesn't give much info
 embed_matrix.iloc[1:5, 1:5]
+
+embed_matrix.to_csv("Embeddings_model2.csv", index_label = "AirlineName")
