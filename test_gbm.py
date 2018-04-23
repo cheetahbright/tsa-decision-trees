@@ -5,22 +5,25 @@
 
 import numpy as np
 import pandas as pd
+import requests
 
 columnNames = ['HouseVal','MedInc','HouseAge','AveRooms',
                'AveBedrms','Population','AveOccup','Latitude','Longitud']
-
-df = pd.read_csv('cadata.txt',skiprows=27, sep='\s+',names=columnNames)
-
+cadata = requests.get(r'https://raw.githubusercontent.com/ppw123/cs686/master/data/cadata.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/ppw123/cs686/master/data/cadata.csv',skiprows=27, names=columnNames)
+df.head()
+df = df.drop(columns=['Latitude', 'Longitud'])
 # Now we have to split the datasets into training and validation. The training
 # data will be used to generate the trees that will constitute the final
 # averaged model.
 
 import random
 
-X = df[df.columns - ['HouseVal']]
+X = df[df.columns.drop(['HouseVal'])]
 Y = df['HouseVal']
-rows = random.sample(df.index, int(len(df)*.80))
-x_train, y_train = X.ix[rows],Y.ix[rows]
+
+rows = random.sample(list(df.index), int(len(df)*.80))
+x_train, y_train = X.iloc[rows],Y.iloc[rows]
 x_test,y_test  = X.drop(rows),Y.drop(rows)
 
 # We then fit a Gradient Tree Boosting model to the data using the
@@ -33,6 +36,7 @@ from sklearn.ensemble import GradientBoostingRegressor
 params = {'n_estimators': 500, 'max_depth': 6,
         'learning_rate': 0.1, 'loss': 'huber','alpha':0.95}
 clf = GradientBoostingRegressor(**params).fit(x_train, y_train)
+
 
 # For me, the Mean Squared Error wasn't much informative and used instead the
 # :math:`R^2` **coefficient of determination**. This measure is a number
@@ -102,11 +106,11 @@ plt.show()
 # variables present a clear monotonic dependence with the target value, while
 # others seem not very related to the target variable even when they ranked high
 # in the previous plot. This could be signaling an interaction between variables
-# that could be further studied. 
+# that could be further studied.
 
 from sklearn.ensemble.partial_dependence import plot_partial_dependence
 
-fig, axs = plot_partial_dependence(clf, x_train, 
+fig, axs = plot_partial_dependence(clf, x_train,
                                    features=[3,2,7,6],
                                    feature_names=x_train.columns,
                                    n_cols=2)
