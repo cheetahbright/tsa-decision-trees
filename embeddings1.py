@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 cleaned_data = clean_data_f()
 data0 = pd.read_excel("claims-data-2015-as-of-feb-9-2016.xlsx")
-
+data0.head()
 col_n_unique = data0.nunique()
 data2 = data0.replace("-", np.NaN)
 col_n_missing = data2.isnull().sum()
@@ -24,7 +24,7 @@ col_stats
 airline_col_names = [x for x in cleaned_data.columns if "Airline" in x]
 airline_col_names[:3]
 len(airline_col_names)
-
+cleaned_data.shape
 airline_df = cleaned_data[airline_col_names]
 airline_df.shape
 Y = cleaned_data["Close Amount"]
@@ -38,7 +38,6 @@ from keras.models import Sequential
 n_unique_col = len(airline_col_names)
 output_embeddings = min(50, n_unique_col//2)
 vocab_size = n_unique_col # In this case?
-
 
 
 def build_1h_emb_model(hidden_layer_n = 10 ,trace = 1):
@@ -141,6 +140,6 @@ embed_matrix.index = airline_col_names
 embed_matrix.shape
 
 # Peak at top corner -- doesn't give much info
-embed_matrix.iloc[1:5, 1:5]
+embed_matrix.iloc[:5, :5]
 
 embed_matrix.to_csv("Embeddings_model2.csv", index_label = "AirlineName")

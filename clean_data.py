@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import logging
-logging.basicConfig(filename='clean_data.log',level=logging.DEBUG)
+logging.basicConfig(filename='clean_data.log',level=logging.INFO)
 
 def clean_data_f():
 
@@ -19,8 +19,8 @@ def clean_data_f():
     data2 = data1[pd.notnull(data1["Close Amount"])]
 
     print("Create time series variables...")
-    data2["Date Received"] = pd.DatetimeIndex(data2["Date Received"])
-    data2["Incident D"] = pd.DatetimeIndex(data2["Incident D"])
+    #data2["Date Received"] = pd.DatetimeIndex(data2["Date Received"])
+    #data2["Incident D"] = pd.DatetimeIndex(data2["Incident D"])
     date_rec_dti = pd.DatetimeIndex(data2["Date Received"])
     incident_date_dti = pd.DatetimeIndex(data2["Incident D"])
 
@@ -57,4 +57,5 @@ def clean_data_f():
 
     data_modeling.set_index("Claim Number")
     print("Success returning modeling dataset")
+    print("Dataset is of shape: ", data_modeling.shape)
     return(data_modeling)
