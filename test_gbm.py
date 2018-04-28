@@ -1,4 +1,5 @@
-
+%matplotlib
+plt.ioff()
 # Data Preparation
 # -----------------
 # The first thing to do is to load the data into a `Pandas <http://pandas.pydata.org/pandas-docs/stable/>`_  dataframe
@@ -7,20 +8,19 @@ import numpy as np
 import pandas as pd
 import requests
 
-columnNames = ['HouseVal','MedInc','HouseAge','AveRooms',
-               'AveBedrms','Population','AveOccup','Latitude','Longitud']
+columnNames = ['median house value',	'median income',	'housing median age',	'total rooms',	'total bedrooms',	'population',	'households',	'latitude',	'longitude']
 cadata = requests.get(r'https://raw.githubusercontent.com/ppw123/cs686/master/data/cadata.csv')
-df = pd.read_csv('https://raw.githubusercontent.com/ppw123/cs686/master/data/cadata.csv',skiprows=27, names=columnNames)
+df = pd.read_csv('https://raw.githubusercontent.com/trackoverxc/tsa-decision-trees/master/cadata.csv',skiprows=27, names=columnNames)
 df.head()
-df = df.drop(columns=['Latitude', 'Longitud'])
+
 # Now we have to split the datasets into training and validation. The training
 # data will be used to generate the trees that will constitute the final
 # averaged model.
 
 import random
 
-X = df[df.columns.drop(['HouseVal'])]
-Y = df['HouseVal']
+X = df[df.columns.drop(['median house value'])]
+Y = df['median house value']
 
 rows = random.sample(list(df.index), int(len(df)*.80))
 x_train, y_train = X.iloc[rows],Y.iloc[rows]
@@ -61,7 +61,8 @@ test_score = np.zeros((params['n_estimators'],), dtype=np.float64)
 
 for i, y_pred in enumerate(clf.staged_decision_function(x_test)):
     test_score[i] = clf.loss_(y_test, y_pred)
-
+plt.ioff()
+plt.off()
 plt.figure(figsize=(12, 6))
 plt.subplot(1, 1, 1)
 plt.title('Deviance')
